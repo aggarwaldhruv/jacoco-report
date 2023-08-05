@@ -102,6 +102,7 @@ function action() {
                 case 'push':
                     base = github.context.payload.before;
                     head = github.context.payload.after;
+                    prNumber = (_c = github.context.payload.number) === null || _c === void 0 ? void 0 : _c;
                     break;
                 default:
                     core.setFailed(`Only pull requests and pushes are supported, ${github.context.eventName} not supported.`);
