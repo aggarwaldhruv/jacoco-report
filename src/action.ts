@@ -31,6 +31,10 @@ export async function action(): Promise<void> {
       core.getInput('min-coverage-changed-files')
     )
     const num = core.getInput('pr-number')
+    if (!num) {
+      core.setFailed("'pr-number' is missing")
+      return
+    }
     const title = core.getInput('title')
     const updateComment = parseBooleans(core.getInput('update-comment'))
     if (updateComment) {
@@ -49,8 +53,6 @@ export async function action(): Promise<void> {
 
     const event = github.context.eventName
     core.info(`Event is ${event}`)
-    // eslint-disable-next-line no-console
-    console.log('here')
     if (debugMode) {
       core.info(`passEmoji: ${passEmoji}`)
       core.info(`failEmoji: ${failEmoji}`)
