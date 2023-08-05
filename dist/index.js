@@ -1,7 +1,4 @@
-require('./sourcemap-register.js');
-const core = require("@actions/core");
-const processors_1 = require("xml2js/lib/processors");
-/******/ (() => { // webpackBootstrap
+require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 3767:
