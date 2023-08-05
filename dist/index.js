@@ -1,4 +1,7 @@
-require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
+require('./sourcemap-register.js');
+const core = require("@actions/core");
+const processors_1 = require("xml2js/lib/processors");
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 3767:
@@ -85,9 +88,11 @@ function action() {
             const debugMode = (0, processors_1.parseBooleans)(core.getInput('debug-mode'));
             const event = github.context.eventName;
             core.info(`Event is ${event}`);
+            num = core.getInput('pr-number');
             if (debugMode) {
                 core.info(`passEmoji: ${passEmoji}`);
                 core.info(`failEmoji: ${failEmoji}`);
+                core.info(`prNumber : ${num}`)
             }
             let base;
             let head;
@@ -102,7 +107,7 @@ function action() {
                 case 'push':
                     base = github.context.payload.before;
                     head = github.context.payload.after;
-                    prNumber = (_c = github.context.payload.number) === null || _c === void 0 ? void 0 : _c;
+                    prNumber = (0, processors_1.parseNumbers)(num);
                     break;
                 default:
                     core.setFailed(`Only pull requests and pushes are supported, ${github.context.eventName} not supported.`);
