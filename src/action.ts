@@ -3,7 +3,7 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as fs from 'fs'
 import parser from 'xml2js'
-import {parseBooleans} from 'xml2js/lib/processors'
+import {parseBooleans, parseNumbers} from 'xml2js/lib/processors'
 import * as glob from '@actions/glob'
 import {getProjectCoverage} from './process'
 import {getPRComment, getTitle} from './render'
@@ -30,6 +30,11 @@ export async function action(): Promise<void> {
     const minCoverageChangedFiles = parseFloat(
       core.getInput('min-coverage-changed-files')
     )
+    const num = core.getInput('pr-number')
+    if (!num) {
+      core.setFailed("'pr-number' is missing")
+      return
+    }
     const title = core.getInput('title')
     const updateComment = parseBooleans(core.getInput('update-comment'))
     if (updateComment) {
@@ -51,6 +56,7 @@ export async function action(): Promise<void> {
     if (debugMode) {
       core.info(`passEmoji: ${passEmoji}`)
       core.info(`failEmoji: ${failEmoji}`)
+      core.info(`prNumber : ${num}`)
     }
 
     let base: string
@@ -66,6 +72,7 @@ export async function action(): Promise<void> {
       case 'push':
         base = github.context.payload.before
         head = github.context.payload.after
+        prNumber = parseNumbers(num)
         break
       default:
         core.setFailed(
