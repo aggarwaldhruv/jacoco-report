@@ -30,6 +30,8 @@ export async function action(): Promise<void> {
     const minCoverageChangedFiles = parseFloat(
       core.getInput('min-coverage-changed-files')
     )
+    const num = core.getInput('pr-number')
+    core.info(`pr number : ${num}`)
     const title = core.getInput('title')
     const updateComment = parseBooleans(core.getInput('update-comment'))
     if (updateComment) {
@@ -66,7 +68,6 @@ export async function action(): Promise<void> {
       case 'push':
         base = github.context.payload.before
         head = github.context.payload.after
-        core.info(`pr number : ${core.getInput('pr-number')}`)
         prNumber = parseInt(core.getInput('pr-number'))
         break
       default:
