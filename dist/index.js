@@ -85,7 +85,7 @@ function action() {
             const debugMode = (0, processors_1.parseBooleans)(core.getInput('debug-mode'));
             const event = github.context.eventName;
             core.info(`Event is ${event}`);
-            num = core.getInput('pr-number');
+            const num = core.getInput('pr-number');
             if (debugMode) {
                 core.info(`passEmoji: ${passEmoji}`);
                 core.info(`failEmoji: ${failEmoji}`);
