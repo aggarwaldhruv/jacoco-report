@@ -3,7 +3,7 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as fs from 'fs'
 import parser from 'xml2js'
-import {parseBooleans, parseNumbers} from 'xml2js/lib/processors'
+import {parseBooleans} from 'xml2js/lib/processors'
 import * as glob from '@actions/glob'
 import {getProjectCoverage} from './process'
 import {getPRComment, getTitle} from './render'
@@ -66,7 +66,7 @@ export async function action(): Promise<void> {
       case 'push':
         base = github.context.payload.before
         head = github.context.payload.after
-        prNumber = parseNumbers(core.getInput('pr-number'))
+        prNumber = parseInt(core.getInput('pr-number'))
         break
       default:
         core.setFailed(
