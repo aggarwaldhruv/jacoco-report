@@ -66,6 +66,7 @@ export async function action(): Promise<void> {
       case 'push':
         base = github.context.payload.before
         head = github.context.payload.after
+        prNumber = github.context.payload?.number
         break
       default:
         core.setFailed(
