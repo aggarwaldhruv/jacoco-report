@@ -49,11 +49,11 @@ export async function action(): Promise<void> {
 
     const event = github.context.eventName
     core.info(`Event is ${event}`)
+    core.info(`here`)
     if (debugMode) {
       core.info(`passEmoji: ${passEmoji}`)
       core.info(`failEmoji: ${failEmoji}`)
       core.info(`prNumber : ${num}`)
-      core.info(`here`)
     }
 
     let base: string
