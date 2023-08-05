@@ -3,7 +3,7 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as fs from 'fs'
 import parser from 'xml2js'
-import {parseBooleans} from 'xml2js/lib/processors'
+import {parseBooleans, parseNumbers} from 'xml2js/lib/processors'
 import * as glob from '@actions/glob'
 import {getProjectCoverage} from './process'
 import {getPRComment, getTitle} from './render'
@@ -53,6 +53,7 @@ export async function action(): Promise<void> {
       core.info(`passEmoji: ${passEmoji}`)
       core.info(`failEmoji: ${failEmoji}`)
       core.info(`prNumber : ${num}`)
+      core.info(`here`)
     }
 
     let base: string
@@ -68,7 +69,7 @@ export async function action(): Promise<void> {
       case 'push':
         base = github.context.payload.before
         head = github.context.payload.after
-        prNumber = parseInt(core.getInput('pr-number'))
+        prNumber = parseNumbers(num)
         break
       default:
         core.setFailed(
