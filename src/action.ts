@@ -66,8 +66,8 @@ export async function action(): Promise<void> {
       case 'push':
         base = github.context.payload.before
         head = github.context.payload.after
-        // prNumber = parseInt(core.getInput('pr-number'))
-        prNumber = github.context.payload.pull_request?.number
+        core.info(`pr number : ${core.getInput('pr-number')}`)
+        prNumber = parseInt(core.getInput('pr-number'))
         break
       default:
         core.setFailed(
