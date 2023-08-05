@@ -52,7 +52,7 @@ export async function action(): Promise<void> {
     if (debugMode) {
       core.info(`passEmoji: ${passEmoji}`)
       core.info(`failEmoji: ${failEmoji}`)
-      core.info(`pr number : ${num}`)
+      core.info(`prNumber : ${num}`)
     }
 
     let base: string
